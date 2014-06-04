@@ -1,2 +1,5 @@
 *.gem
 /nbproject
+.hg*
+.idea
+commit
