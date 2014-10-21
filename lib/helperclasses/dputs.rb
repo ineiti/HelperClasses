@@ -55,21 +55,38 @@ module HelperClasses
         }
       end
     end
-	
+
+
+    def dputs_getcaller
+      caller(0)[2].sub(/:.*:in/, '').sub(/block .*in /,'')
+    end
+
+    def dputs_func
+      $DPUTS_FUNCS ||= []
+      $DPUTS_FUNCS.push(dputs_getcaller) unless $DPUTS_FUNCS.index(dputs_getcaller)
+    end
+
+    def dputs_unfunc
+      $DPUTS_FUNCS ||= []
+      $DPUTS_FUNCS.index(dputs_getcaller) and $DPUTS_FUNCS.delete(dputs_getcaller)
+    end
+
     def dputs(n, &s)
-      if DEBUG_LVL >= n
+      n *= -1 if ($DPUTS_FUNCS and $DPUTS_FUNCS.index(dputs_getcaller))
+      if self.class.const_get(:DEBUG_LVL) >= n
         s = yield s
-        dputs_out( n, s, caller(0)[1] )
+        dputs_out(n, s, caller(0)[1])
       end
     end
 
-    def ddputs( n, &s )
+    def ddputs(n, &s)
       s = yield s
-      dputs_out( -n, s, caller(0)[1] )
+      #dp caller(0)
+      dputs_out(-n, s, caller(0)[1])
     end
-  
-    def dp( s )
-      dputs_out( 0, s.class == String ? s : s.inspect, caller(0)[1] )
+
+    def dp(s)
+      dputs_out(0, s.class == String ? s : s.inspect, caller(0)[1])
       s
     end
 
