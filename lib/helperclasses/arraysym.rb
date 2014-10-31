@@ -1,11 +1,11 @@
 
 module HelperClasses
   module ArraySym
-    refine Array do
-      # Comptaibility for Ruby < 1.9
-      if ! Array.respond_to? :to_h
+    class Array
+      # Comptaibility for Ruby <= 2.0
+      if ![].respond_to? :to_h
         def to_h
-          Hash[ *self ]
+          Hash[*self.flatten]
         end
       end
 
