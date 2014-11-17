@@ -4,6 +4,7 @@ require 'helperclasses/dputs'
 module HelperClasses
   module System
     extend self
+    extend HelperClasses::DPuts
     include HelperClasses::DPuts
 
     def run_str(cmd)
