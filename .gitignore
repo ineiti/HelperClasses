@@ -4,3 +4,4 @@
 .idea
 commit
 .DS_Store
+test/test_config
