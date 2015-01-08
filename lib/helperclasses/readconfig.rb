@@ -38,7 +38,7 @@ module HelperClasses
     #
     # in that config-file
     def ruby(file)
-      return nil unless File.exists? file
+      return {} unless File.exists? file.to_s
       return eval(IO.readlines(file).join)
     end
 
