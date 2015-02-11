@@ -1,5 +1,6 @@
-require 'helperclasses/hashaccessor'
 require 'helperclasses/arraysym'
 require 'helperclasses/dputs'
-require 'helperclasses/system'
+require 'helperclasses/hashaccessor'
 require 'helperclasses/readconfig'
+require 'helperclasses/service'
+require 'helperclasses/system'
