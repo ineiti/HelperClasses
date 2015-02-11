@@ -8,12 +8,12 @@ module HelperClasses
     include HelperClasses::DPuts
 
     def run_str(cmd)
-      dputs(2) { "Running command --#{cmd}--" }
+      dputs(3) { "Running command --#{cmd}--" }
       %x[ #{cmd} ]
     end
 
     def run_bool(cmd)
-      dputs(2) { "Running command --#{cmd}--" }
+      dputs(3) { "Running command --#{cmd}--" }
       Kernel.system("#{cmd} > /dev/null 2>&1")
     end
 
