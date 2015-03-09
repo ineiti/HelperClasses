@@ -19,7 +19,8 @@ module HelperClasses
     def service_get(service)
       services = {
           samba: {ArchLinux: %w( smbd nmbd ), Ubuntu: %w(smbd nmbd)},
-          cups: {ArchLinux: 'org.cups.cupsd', Ubuntu: 'cupsd'}
+          cups: {ArchLinux: 'org.cups.cupsd', Ubuntu: 'cupsd'},
+          dnsmasq: {ArchLinux: 'dnsmasq', Ubuntu: 'dnsmasq'}
       }[service.to_sym]
       services or return nil
       services[@system]
