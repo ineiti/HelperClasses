@@ -3,6 +3,8 @@ require 'helperclasses/system'
 
 module HelperClasses
   module Service
+    attr_accessor :system, :services
+
     extend self
     extend HelperClasses::DPuts
     @system = case System.run_str 'uname -a'
@@ -16,14 +18,17 @@ module HelperClasses
                   nil
               end
 
+    @services = {
+        samba: {ArchLinux: %w( smbd nmbd ), Ubuntu: %w(smbd nmbd)},
+        cups: {ArchLinux: 'org.cups.cupsd', Ubuntu: 'cupsd'}
+    }
+
     def service_get(service)
-      services = {
-          samba: {ArchLinux: %w( smbd nmbd ), Ubuntu: %w(smbd nmbd)},
-          cups: {ArchLinux: 'org.cups.cupsd', Ubuntu: 'cupsd'},
-          dnsmasq: {ArchLinux: 'dnsmasq', Ubuntu: 'dnsmasq'}
-      }[service.to_sym]
-      services or return nil
-      services[@system]
+      begin
+        @services[service.to_sym][@system]
+      rescue NoMethodError => _e
+        service.to_s
+      end
     end
 
     def service_run(service, cmd)
