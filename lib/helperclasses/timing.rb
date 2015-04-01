@@ -6,7 +6,7 @@ module HelperClasses
     end
 
     def probe(msg = '')
-      t = sprintf('%f3', (Time.now - @time).to_f)
+      t = sprintf('%6f', (Time.now - @time).to_f)
       dputs(@dbg_lvl) { "#{msg}: #{t}" }
       @time = Time.now
     end
