@@ -36,6 +36,28 @@ will NOT evaluate it! The debug-levels are arbitrarily chosen like this:
 4
 5 - Dumping lots of raw data
 
+==== Fine-grained debugging
+
+If you have a function with lots of _dputs_ in it, and you'd like to output
+all debugging messages just from that function, you simply add
+
+```
+dputs_func
+```
+
+at the beginning of your function.
+
+If you want just one specific _dputs_ to be evaluated, just change its name to
+_ddputs_:
+
+```
+DEBUG_LVL = 0
+
+ddputs(5){"String with lots of data#{huge_var.inspect}"}
+```
+
+will be evaluated!
+
 === Arraysym
 
 to_sym and to_sym! - calls .to_sym on all elements. Usage:
