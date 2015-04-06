@@ -1,5 +1,5 @@
 Gem::Specification.new do |s|
-  s.name = 'helperclasses'
+  s.name = 'HelperClasses'
   s.version = '0.2.0'
   s.date = '2015-04-06'
   s.summary = 'Hash._accessor Array.to_sym and DPuts'
