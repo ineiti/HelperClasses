@@ -44,7 +44,7 @@ module HelperClasses
       end
 
       if @iptables_cmd != ''
-        System.run_str(dp "#{@iptables_cmd} #{@iptables_wait} #{args.join(' ')}")
+        System.run_str("#{@iptables_cmd} #{@iptables_wait} #{args.join(' ')}")
       else
         return ''
       end
