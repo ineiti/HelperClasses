@@ -32,5 +32,22 @@ module HelperClasses
         e.backtrace.each { |l| dputs(0) { l } }
       end
     end
+
+    def iptables(*args)
+      if !@iptables_cmd
+        if System.exists?('iptables')
+          @iptables_cmd = 'iptables'
+          @iptables_wait = (System.run_str('iptables --help') =~ /\s-w\s/) ? '-w' : ''
+        else
+          @iptables_cmd = ''
+        end
+      end
+
+      if @iptables_cmd != ''
+        System.run_str(dp "#{@iptables_cmd} #{@iptables_wait} #{args.join(' ')}")
+      else
+        return ''
+      end
+    end
   end
 end
