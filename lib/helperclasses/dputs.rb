@@ -94,7 +94,7 @@ module HelperClasses
     def log_msg(mod, msg)
       dputs(1) { "Info from #{mod}: #{msg}" }
       return if not DPuts.log_file
-      File.open(DPuts.log_file, "a") { |f|
+      File.open(DPuts.log_file, 'a') { |f|
         str = Time.now.strftime("%a %y.%m.%d-%H:%M:%S #{mod}: #{msg}")
         f.puts str
       }

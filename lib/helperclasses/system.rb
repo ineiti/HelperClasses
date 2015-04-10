@@ -22,11 +22,11 @@ module HelperClasses
       run_bool("which #{cmd} > /dev/null 2>&1")
     end
 
-    def rescue_all(msg = nil)
+    def rescue_all(msg = 'Error')
       begin
         yield
       rescue Exception => e
-        msg and dputs(0) { msg }
+        dputs(0) { "#{Time.now.strftime("%a %y.%m.%d-%H:%M:%S #{mod}: #{msg}")} - #{msg}" }
         dputs(0) { "#{e.inspect}" }
         dputs(0) { "#{e.to_s}" }
         e.backtrace.each { |l| dputs(0) { l } }
