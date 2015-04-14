@@ -26,7 +26,7 @@ module HelperClasses
       begin
         yield
       rescue Exception => e
-        dputs(0) { "#{Time.now.strftime("%a %y.%m.%d-%H:%M:%S #{mod}: #{msg}")} - #{msg}" }
+        dputs(0) { "#{Time.now.strftime('%a %y.%m.%d-%H:%M:%S')} - #{msg}" }
         dputs(0) { "#{e.inspect}" }
         dputs(0) { "#{e.to_s}" }
         e.backtrace.each { |l| dputs(0) { l } }
