@@ -8,7 +8,7 @@ module HelperClasses
 
     @mutex = Mutex.new
     @silent = false
-    @show_time = 60
+    @show_time = false
     @terminal_width = 160
     @log_file = false
 
@@ -23,6 +23,8 @@ module HelperClasses
             show = now.to_i != $dputs_time.to_i
           when /min/
             show = (now.to_i / 60).floor != ($dputs_time.to_i / 60).floor
+          when /hour/
+            show = (now.to_i / 3600).floor != ($dputs_time.to_i / 3600).floor
         end
         show and puts "\n   *** It is now: " +
                           Time.now.strftime("%Y-%m-%d %H:%M:%S")
