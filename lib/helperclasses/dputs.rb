@@ -104,5 +104,8 @@ module HelperClasses
       }
     end
 
+    def dlog_msg(mod, msg)
+      ddputs(1){"Info from #{mod}: #{msg}"}
+    end
   end
 end
