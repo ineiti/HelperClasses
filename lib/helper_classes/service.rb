@@ -1,5 +1,5 @@
-require 'helperclasses/dputs'
-require 'helperclasses/system'
+require 'helper_classes/dputs'
+require 'helper_classes/system'
 
 module HelperClasses
   module Service

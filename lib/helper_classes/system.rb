@@ -1,5 +1,5 @@
 # System-interaction for different flavours of Unix
-require 'helperclasses/dputs'
+require 'helper_classes/dputs'
 
 module HelperClasses
   module System
