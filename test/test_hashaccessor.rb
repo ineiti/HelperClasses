@@ -1,4 +1,4 @@
-require 'helperclasses/hashaccessor'
+require 'helper_classes/hashaccessor'
 
 using HelperClasses::HashAccessor
 

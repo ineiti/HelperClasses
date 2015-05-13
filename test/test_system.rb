@@ -1,8 +1,6 @@
 #!/usr/bin/env ruby
 
-$LOAD_PATH.push '../lib'
-
-require 'helperclasses/system'
+require 'helper_classes/system'
 include HelperClasses::System
 
 rescue_all do

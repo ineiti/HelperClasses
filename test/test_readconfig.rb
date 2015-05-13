@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 
-$LOAD_PATH.push('../lib')
-require 'helperclasses/readconfig'
+require 'helper_classes/readconfig'
 
 include HelperClasses
 

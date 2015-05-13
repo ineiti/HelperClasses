@@ -2,7 +2,7 @@
 $LOAD_PATH.push '../lib', '.'
 
 require 'test/unit'
-require 'helperclasses'
+require 'helper_classes'
 include HelperClasses
 
 tests = Dir.glob( 'hc_*.rb' )

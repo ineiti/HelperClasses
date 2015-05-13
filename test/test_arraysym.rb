@@ -1,5 +1,5 @@
-require 'helperclasses/arraysym'
+require 'helper_classes/arraysym'
 
 using HelperClasses::ArraySym
 
-p ["a", "b"].to_sym
+p %w(a b).to_sym
