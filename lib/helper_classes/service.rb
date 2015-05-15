@@ -91,6 +91,15 @@ module HelperClasses
       )
     end
 
+    def reload
+      return unless @system == :ArchLinux
+      System.run_bool('/usr/bin/systemctl daemon-reload')
+    end
+
+    def daemon_reload
+      reload
+    end
+
     def enable_start(service)
       enable(service)
       start(service)
