@@ -25,7 +25,7 @@ module HelperClasses
     def rescue_all(msg = 'Error')
       begin
         yield
-      rescue Exception => e
+      rescue StandardError => e
         dputs(0) { "#{Time.now.strftime('%a %y.%m.%d-%H:%M:%S')} - #{msg}" }
         dputs(0) { "#{e.inspect}" }
         dputs(0) { "#{e.to_s}" }
