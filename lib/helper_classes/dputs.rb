@@ -4,13 +4,19 @@ module HelperClasses
 
   module DPuts
     extend self
-    attr_accessor :mutex, :silent, :show_time, :terminal_width, :log_file
+    attr_accessor :mutex, :silent, :show_time, :terminal_width, :log_file,
+                  :logall_file
 
     @mutex = Mutex.new
     @silent = false
     @show_time = false
     @terminal_width = 160
     @log_file = false
+    @logall_file = false
+
+    def logfile_valid(f)
+      return f && f.to_s.length > 0 && File.exists?(File.dirname(f))
+    end
 
     def dputs_out(n, s, call)
       return if DPuts.silent
@@ -53,10 +59,15 @@ module HelperClasses
           lines.push s.slice(pos, len)
           pos += len
         end
-        puts who + ' ' + lines.shift.to_s
+        str = who + ' ' + lines.shift.to_s + "\n"
         lines.each { |l|
-          puts ' ' * (32) + l
+          str += ' ' * (32) + l + "\n"
         }
+        if logfile_valid(DPuts.logall_file)
+          IO.write(DPuts.logall_file, str, mode: 'a')
+        else
+          puts str
+        end
       end
     end
 
@@ -97,15 +108,16 @@ module HelperClasses
 
     def log_msg(mod, msg)
       dputs(1) { "Info from #{mod}: #{msg}" }
-      return if not DPuts.log_file
-      File.open(DPuts.log_file, 'a') { |f|
-        str = Time.now.strftime("%a %y.%m.%d-%H:%M:%S #{mod}: #{msg}")
-        f.puts str
-      }
+      if logfile_valid(DPuts.log_file)
+        File.open(DPuts.log_file, 'a') { |f|
+          str = Time.now.strftime("%a %y.%m.%d-%H:%M:%S #{mod}: #{msg}")
+          f.puts str
+        }
+      end
     end
 
     def dlog_msg(mod, msg)
-      ddputs(1){"Info from #{mod}: #{msg}"}
+      ddputs(1) { "Info from #{mod}: #{msg}" }
     end
   end
 end
