@@ -11,6 +11,7 @@ module HelperClasses
     @silent = false
     @show_time = false
     @terminal_width = 160
+    @max_msg_len = 8192
     @log_file = false
     @logall_file = false
 
@@ -47,16 +48,18 @@ module HelperClasses
             func.to_s).ljust(30, ['X', 'x', '*', '-', '.', ' '][n])
         lines = []
         pos = 0
-        while (pos < s.length)
+        # Don't show enormous strings
+        s_trunc = s[0..DPuts.max_msg_len]
+        while (pos < s_trunc.length)
           len = width
-          if s.length - pos > width
-            len = s.rindex(/[, .;=&>]/, pos + width)
+          if s_trunc.length - pos > width
+            len = s_trunc.rindex(/[, .;=&>]/, pos + width)
             len = len ? len - pos + 1 : width
             if len < width / 2
               len = width
             end
           end
-          lines.push s.slice(pos, len)
+          lines.push s_trunc.slice(pos, len)
           pos += len
         end
         str = who + ' ' + lines.shift.to_s + "\n"
