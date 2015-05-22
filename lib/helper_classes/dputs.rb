@@ -5,7 +5,7 @@ module HelperClasses
   module DPuts
     extend self
     attr_accessor :mutex, :silent, :show_time, :terminal_width, :log_file,
-                  :logall_file
+                  :logall_file, :max_msg_len
 
     @mutex = Mutex.new
     @silent = false
