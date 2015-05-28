@@ -43,7 +43,7 @@ module HelperClasses
         end
         if show
           str = "\n   *** It is now: " +
-                   Time.now.strftime('%Y-%m-%d %H:%M:%S')
+                   Time.now.strftime('%Y-%m-%d %H:%M:%S') + "\n"
           dputs_write(str)
           $dputs_time = now
         end
