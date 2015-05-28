@@ -19,6 +19,14 @@ module HelperClasses
       return f && f.to_s.length > 0 && File.exists?(File.dirname(f))
     end
 
+    def dputs_write(str)
+      if logfile_valid(DPuts.logall_file)
+        IO.write(DPuts.logall_file, str, mode: 'a')
+      else
+        puts str
+      end
+    end
+
     def dputs_out(n, s, call)
       return if DPuts.silent
       if precision = DPuts.show_time
@@ -34,8 +42,9 @@ module HelperClasses
             show = (now.to_i / 3600).floor != ($dputs_time.to_i / 3600).floor
         end
         if show
-          puts "\n   *** It is now: " +
+          str = "\n   *** It is now: " +
                    Time.now.strftime('%Y-%m-%d %H:%M:%S')
+          dputs_write(str)
           $dputs_time = now
         end
       end
@@ -66,11 +75,7 @@ module HelperClasses
         lines.each { |l|
           str += ' ' * (32) + l + "\n"
         }
-        if logfile_valid(DPuts.logall_file)
-          IO.write(DPuts.logall_file, str, mode: 'a')
-        else
-          puts str
-        end
+        dputs_write(str)
       end
     end
 
