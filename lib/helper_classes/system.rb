@@ -50,5 +50,26 @@ module HelperClasses
         return ''
       end
     end
+
+    # Returns the stratum of the ntpd-synchronization:
+    # 16 -> not synchronized
+    # 2..15 -> synchronized
+    def ntpdstratum
+      ret = System.run_str('ntpq -c "rv 0 stratum"')
+      return 16 if ret =~ /connection refused/i
+      stratum = ret.gsub(/.*=/, '')
+      return stratum
+    end
+
+    # Returns the offset of the ntpd-synchronization:
+    # nil -> not synchronized
+    # else -> synchronization in ms
+    def ntpdoffset
+      ret = System.run_str('ntpq -c "rv 0 stratum,offset"')
+      return nil if ret =~ /connection refused/i
+      stratum, offset = ret.split(/, /).collect{|s| s.gsub(/.*=/, '')}
+      return nil if stratum == '16'
+      return offset
+    end
   end
 end
