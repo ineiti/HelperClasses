@@ -61,13 +61,24 @@ module HelperClasses
       return stratum
     end
 
+    # Waits for NTP to be synchronized or for _n_ seconds
+    def ntpd_wait(n = 60)
+      Thread.new {
+        (1..n).each {
+          break if System.ntpdstratum < 16
+          sleep 1
+        }
+        yield
+      }
+    end
+
     # Returns the offset of the ntpd-synchronization:
     # nil -> not synchronized
     # else -> synchronization in ms
     def ntpdoffset
       ret = System.run_str('ntpq -c "rv 0 stratum,offset"')
       return nil if ret =~ /connection refused/i
-      stratum, offset = ret.split(/, /).collect{|s| s.gsub(/.*=/, '')}
+      stratum, offset = ret.split(/, /).collect { |s| s.gsub(/.*=/, '') }
       return nil if stratum == '16'
       return offset
     end
