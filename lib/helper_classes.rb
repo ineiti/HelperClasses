@@ -1,7 +1,3 @@
-require 'helper_classes/arraysym'
-require 'helper_classes/dputs'
-require 'helper_classes/hashaccessor'
-require 'helper_classes/readconfig'
-require 'helper_classes/service'
-require 'helper_classes/system'
-require 'helper_classes/timing'
+Dir.glob('helper_classes/*.rb').each { |d|
+  require d
+}
