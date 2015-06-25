@@ -58,17 +58,19 @@ module HelperClasses
       ret = System.run_str('ntpq -c "rv 0 stratum"')
       return 16 if ret =~ /connection refused/i
       stratum = ret.gsub(/.*=/, '')
-      return stratum
+      return stratum.to_i
     end
 
     # Waits for NTP to be synchronized or for _n_ seconds
     def ntpd_wait(n = 60)
       Thread.new {
-        (1..n).each {
-          break if System.ntpdstratum < 16
-          sleep 1
-        }
-        yield
+        System.rescue_all do
+          (1..n).each {
+            break if System.ntpdoffset
+            sleep 1
+          }
+          yield
+        end
       }
     end
 
@@ -80,7 +82,7 @@ module HelperClasses
       return nil if ret =~ /connection refused/i
       stratum, offset = ret.split(/, /).collect { |s| s.gsub(/.*=/, '') }
       return nil if stratum == '16'
-      return offset
+      return offset.to_f
     end
   end
 end
