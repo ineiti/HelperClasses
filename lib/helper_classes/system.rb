@@ -34,7 +34,7 @@ module HelperClasses
       end
     end
 
-    def iptables(*args)
+    def iptables(*args, check: false)
       if !@iptables_cmd
         if System.exists?('iptables')
           @iptables_cmd = 'iptables'
@@ -45,7 +45,12 @@ module HelperClasses
       end
 
       if @iptables_cmd != ''
-        System.run_str("#{@iptables_cmd} #{@iptables_wait} #{args.join(' ')}")
+        if check
+          dp( "Checking #{@iptables_wait} #{args.join(' ')}")
+          System.run_bool("#{@iptables_cmd} #{@iptables_wait} #{args.join(' ')} 2>/dev/null")
+        else
+          System.run_str("#{@iptables_cmd} #{@iptables_wait} #{args.join(' ')}")
+        end
       else
         return ''
       end
