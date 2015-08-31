@@ -46,7 +46,6 @@ module HelperClasses
 
       if @iptables_cmd != ''
         if check
-          dp( "Checking #{@iptables_wait} #{args.join(' ')}")
           System.run_bool("#{@iptables_cmd} #{@iptables_wait} #{args.join(' ')} 2>/dev/null")
         else
           System.run_str("#{@iptables_cmd} #{@iptables_wait} #{args.join(' ')}")
