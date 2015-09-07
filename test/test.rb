@@ -1,12 +1,13 @@
 #!/usr/bin/env ruby
-$LOAD_PATH.push '../lib', '.'
+require 'bundler/setup'
+$LOAD_PATH.push '.', '../lib'
 
 require 'test/unit'
 require 'helper_classes'
 include HelperClasses
 
 tests = Dir.glob( 'hc_*.rb' )
-#tests = %w(  )
+tests = %w( hashaccessor )
 
 tests.each{|t|
   begin
