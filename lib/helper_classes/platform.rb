@@ -2,7 +2,7 @@ require 'helper_classes/dputs'
 require 'helper_classes/system'
 
 module HelperClasses
-  module Service
+  module Platform
     attr_accessor :system, :services
 
     extend self
@@ -20,7 +20,9 @@ module HelperClasses
 
     @services = {
         samba: {ArchLinux: %w( smbd nmbd ), Ubuntu: %w(smbd nmbd)},
-        cups: {ArchLinux: 'org.cups.cupsd', Ubuntu: 'cupsd'}
+        cups: {ArchLinux: 'org.cups.cupsd', Ubuntu: 'cupsd'},
+        net_start: {ArchLinux: 'netctl start', Ubuntu: 'ifup'},
+        net_stop: {ArchLinux: 'netctl start', Ubuntu: 'ifdown'},
     }
 
     def service_get(service)
@@ -108,6 +110,40 @@ module HelperClasses
     def stop_disable(service)
       disable(service)
       stop(service)
+    end
+
+    def net_start(iface)
+      c = "#{@services[:net_start][@system]} #{iface}"
+      if !System.run_bool(c)
+        log_msg :Services, "Command #{c} failed"
+        return false
+      end
+      return true
+    end
+
+    def net_stop(iface)
+      c = "#{@services[:net_stop][@system]} #{iface}"
+      if !System.run_bool(c)
+        log_msg :Services, "Command #{c} failed"
+        return false
+      end
+      return true
+    end
+
+    def net_restart(iface)
+      net_stop(iface)
+      net_start(iface)
+    end
+
+    def net_status(iface, dev)
+      case @system
+        when :ArchLinux
+          return System.run_str("netctl status #{iface} | grep Active") =~ /: active/
+        when :Ubuntu
+          return System.run_str("ifconfig | grep #{dev}") != ''
+        else
+          return false
+      end
     end
   end
 end

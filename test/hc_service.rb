@@ -7,9 +7,9 @@ class TC_Service < Test::Unit::TestCase
   end
 
   def test_service_get
-    Service.system = :ArchLinux
+    Platform.system = :ArchLinux
 
-    assert_equal %w(smbd nmbd), Service.service_get(:samba)
-    assert_equal 'dnsmasq', Service.service_get(:dnsmasq)
+    assert_equal %w(smbd nmbd), Platform.service_get(:samba)
+    assert_equal 'dnsmasq', Platform.service_get(:dnsmasq)
   end
 end
