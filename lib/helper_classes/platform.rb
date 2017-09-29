@@ -60,21 +60,21 @@ module HelperClasses
 
     def start(service)
       service_run(service, {ArchLinux: 'systemctl start ##',
-                            Ubuntu: '/etc/init.d/## start',
+                            Ubuntu: 'systemctl start ##',
                             MacOSX: nil}
       )
     end
 
     def stop(service)
       service_run(service, {ArchLinux: 'systemctl stop ##',
-                            Ubuntu: '/etc/init.d/## stop',
+                            Ubuntu: 'systemctl start ##',
                             MacOSX: nil}
       )
     end
 
     def restart(service)
       service_run(service, {ArchLinux: 'systemctl restart ##',
-                            Ubuntu: '/etc/init.d/## restart',
+                            Ubuntu: 'systemctl start ##',
                             MacOSX: nil}
       )
     end
