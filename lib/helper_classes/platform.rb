@@ -67,28 +67,28 @@ module HelperClasses
 
     def stop(service)
       service_run(service, {ArchLinux: 'systemctl stop ##',
-                            Ubuntu: 'systemctl start ##',
+                            Ubuntu: 'systemctl stop ##',
                             MacOSX: nil}
       )
     end
 
     def restart(service)
       service_run(service, {ArchLinux: 'systemctl restart ##',
-                            Ubuntu: 'systemctl start ##',
+                            Ubuntu: 'systemctl restart ##',
                             MacOSX: nil}
       )
     end
 
     def enable(service)
       service_run(service, {ArchLinux: 'systemctl enable ##',
-                            Ubuntu: nil,
+                            Ubuntu: 'systemctl enable ##',
                             MacOSX: nil}
       )
     end
 
     def disable(service)
       service_run(service, {ArchLinux: 'systemctl disable ##',
-                            Ubuntu: nil,
+                            Ubuntu: 'systemctl disable ##',
                             MacOSX: nil}
       )
     end
