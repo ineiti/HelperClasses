@@ -85,7 +85,7 @@ module HelperClasses
       ret = System.run_str('ntpq -c "rv 0 stratum,offset"')
       return nil if ret =~ /connection refused/i
       stratum, offset = ret.split(/, /).collect { |s| s.gsub(/.*=/, '') }
-      return nil if stratum == '16'
+      #return nil if stratum == '16'
       return offset.to_f
     end
   end

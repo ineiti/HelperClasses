@@ -21,8 +21,8 @@ module HelperClasses
     @services = {
         samba: {ArchLinux: %w( smbd nmbd ), Ubuntu: %w(smbd nmbd)},
         cups: {ArchLinux: 'org.cups.cupsd', Ubuntu: 'cupsd'},
-        net_start: {ArchLinux: 'netctl start', Ubuntu: 'ifup'},
-        net_stop: {ArchLinux: 'netctl start', Ubuntu: 'ifdown'},
+        net_start: {ArchLinux: '/usr/bin/netctl start', Ubuntu: 'ifup'},
+        net_stop: {ArchLinux: '/usr/bin/netctl stop', Ubuntu: 'ifdown'},
     }
 
     def service_get(service)
