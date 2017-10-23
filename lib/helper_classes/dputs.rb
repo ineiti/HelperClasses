@@ -50,11 +50,11 @@ module HelperClasses
       end
       DPuts.mutex.synchronize do
         width = DPuts.terminal_width.to_i || 160
-        width = [width - 30.0, 10].max
+        width = [width - 40.0, 10].max
         file, func = call.split(' ')
-        file = file[/^.*\/([^.]*)/, 1]
-        who = (':' + n.to_s + ':' + file.to_s +
-            func.to_s).ljust(30, ['X', 'x', '*', '-', '.', ' '][n])
+        file = file[/^.*\/(.*):in/, 1]
+        who = (':' + n.to_s + ':' + file.to_s + "--" +
+            func.to_s).ljust(40, ['X', 'x', '*', '-', '.', ' '][n])
         lines = []
         pos = 0
         # Don't show enormous strings
