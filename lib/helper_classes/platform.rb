@@ -18,7 +18,7 @@ module HelperClasses
                   nil
               end
 
-    @has_systemd = run_bool('test -x /bin/systemctl')
+    @has_systemd = System.run_bool('test -x /bin/systemctl')
 
     @services = {
         samba: {ArchLinux: %w( smbd nmbd ), Ubuntu: %w(smbd nmbd)},
