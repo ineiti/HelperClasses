@@ -3,7 +3,7 @@ require 'helper_classes/system'
 
 module HelperClasses
   module Platform
-    attr_accessor :system, :services
+    attr_accessor :system, :services, :has_systemd
 
     extend self
     extend HelperClasses::DPuts
@@ -17,6 +17,8 @@ module HelperClasses
                 else
                   nil
               end
+
+    @has_systemd = run_bool('test -x /bin/systemctl')
 
     @services = {
         samba: {ArchLinux: %w( smbd nmbd ), Ubuntu: %w(smbd nmbd)},
