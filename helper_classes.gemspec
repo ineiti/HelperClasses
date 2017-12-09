@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'helper_classes'
-  s.version = '1.9.13-11'
+  s.version = '0.4.0'
   s.date = '2017-10-30'
   s.summary = 'Hash._accessor Array.to_sym and DPuts'
   s.description = 'Added accessors to Hash, to_sym to Array and a nice debugging-interface called DPuts'

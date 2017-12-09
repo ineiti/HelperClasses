@@ -115,7 +115,7 @@ module HelperClasses
     end
 
     def log_msg(mod, msg)
-      dputs(1) { "Info from #{mod}: #{msg}" }
+      dputs_out(1, "Info from #{mod}: #{msg}", caller(0)[1])
       if logfile_valid(DPuts.log_file)
         File.open(DPuts.log_file, 'a') { |f|
           str = Time.now.strftime("%a %y.%m.%d-%H:%M:%S #{mod}: #{msg}")
@@ -125,7 +125,7 @@ module HelperClasses
     end
 
     def dlog_msg(mod, msg)
-      ddputs(1) { "Info from #{mod}: #{msg}" }
+      dputs_out(-1, "Info from #{mod}: #{msg}", caller(0)[1])
     end
   end
 end
