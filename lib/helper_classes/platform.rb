@@ -147,5 +147,44 @@ module HelperClasses
           return false
       end
     end
+
+    def connection_run_cmds(str)
+      return unless str
+      if str
+        str.split("\n").each { |cmd|
+          dputs(2) { "Running cmd #{cmd}" }
+          System.run_str(cmd)
+        }
+      end
+    end
+
+    def connection_services(str, action)
+      return unless str
+      str.split(' ').each { |service|
+        case action
+          when /start/
+            dputs(2) { "Starting service #{service}" }
+            restart(service)
+          when /stop/
+            dputs(2) { "Stopping service #{service}" }
+            stop(service)
+        end
+      }
+    end
+
+    def connection_vpn(vpns, action)
+      return unless vpns
+      vpns.split(' ').each { |vpn_name|
+        case action
+          when /start/
+            dputs(2) { "Starting openvpn #{vpn_name}" }
+            restart("openvpn@#{vpn_name}")
+          when /stop/
+            dputs(2) { "Stopping openvpn #{vpn_name}" }
+            stop("openvpn@#{vpn_name}")
+        end
+      }
+    end
+
   end
 end
