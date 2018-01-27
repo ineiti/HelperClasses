@@ -134,6 +134,7 @@ module HelperClasses
 
     def net_restart(iface)
       net_stop(iface)
+      sleep(2)
       net_start(iface)
     end
 
